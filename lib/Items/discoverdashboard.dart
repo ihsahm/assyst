@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:assyst/Database/notifier.dart';
+import 'package:assyst/Database/ProductsDB/notifier.dart';
 import 'package:assyst/Screens/Pages/cardetails.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extended_image/extended_image.dart';

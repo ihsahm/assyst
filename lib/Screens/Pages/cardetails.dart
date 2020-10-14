@@ -1,10 +1,10 @@
-import 'package:assyst/Database/newuserdb.dart';
+import 'package:assyst/Database/UserDB/newuserdb.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../Database/notifier.dart';
+import '../../Database/ProductsDB/notifier.dart';
 
 class ProductDetails extends StatefulWidget {
   final product_detail_picture;

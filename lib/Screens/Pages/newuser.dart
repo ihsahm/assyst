@@ -1,4 +1,4 @@
-import 'package:assyst/Database/newuserdb.dart';
+import 'package:assyst/Database/UserDB/newuserdb.dart';
 import 'package:assyst/Shared/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

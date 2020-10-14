@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:assyst/Database/notifier.dart';
+import 'package:assyst/Database/ProductsDB/notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:assyst/Database/productdata.dart';
+import 'package:assyst/Database/ProductsDB/productdata.dart';
 //import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:uuid/uuid.dart';
 import 'package:fluttertoast/fluttertoast.dart';
