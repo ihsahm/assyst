@@ -39,6 +39,9 @@ class _LoginState extends State<Login> {
 
     final PhoneVerificationFailed verificationFailed =
         (FirebaseAuthException authException) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('$authException.message'),
+      ));
       print('${authException.message}');
     };
 
