@@ -45,6 +45,7 @@ dependencies:
   image_picker: ^0.6.7+6
   uuid: ^2.2.2
   provider: ^4.3.2+1
+  dropdown_date_picker: ^0.0.3
   custom_dropdown: ^0.0.2
   google_sign_in: ^4.5.1
   carousel_slider: ^2.2.1
@@ -69,8 +70,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
-    - assets/dealers/
+    - assets/carlogo/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

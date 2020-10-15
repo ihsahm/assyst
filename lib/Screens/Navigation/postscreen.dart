@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:assyst/Database/ProductsDB/productdata.dart';
 //import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:uuid/uuid.dart';
+import 'package:dropdown_date_picker/dropdown_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -48,6 +49,7 @@ class _PostState extends State<Post> {
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   int _checkboxValue;
+  final now = DateTime.now();
 
   TextEditingController yearController = TextEditingController();
   String fueldropdownValue = 'Benzene';
@@ -238,15 +240,15 @@ class _PostState extends State<Post> {
                                 });
                               },
                               items: <String>[
+                                'Abay',
                                 'AMCE',
                                 'Alfa Romeo',
                                 'Apache',
-                                'Aston Martin',
                                 'Astra',
                                 'Audi',
                                 'BMW',
                                 'BYD',
-                                'Baja',
+                                'Bajaj',
                                 'CMC',
                                 'Cadillac',
                                 'Chery',
@@ -289,7 +291,7 @@ class _PostState extends State<Post> {
                                 'Mercedes-Benz',
                                 'Mini Cooper',
                                 'Mitsubishi'
-                                    'Nissan',
+                                'Nissan',
                                 'Peugeot',
                                 'Piaggio',
                                 'Porsche',
@@ -310,7 +312,7 @@ class _PostState extends State<Post> {
                                 'Volkswagen',
                                 'Yamaha',
                                 'Zotye',
-                                'Other Brand',
+                                'Other Brand', 
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -343,22 +345,6 @@ class _PostState extends State<Post> {
                           keyboardType: TextInputType.phone,
                         ),
                         SizedBox(height: 10),
-                        RaisedButton(
-                          onPressed: () {
-                            showDatePicker(
-                                    context: context,
-                                    initialDatePickerMode: DatePickerMode.year,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1940),
-                                    lastDate: DateTime.now())
-                                .then((DateTime value) {
-                              if (value != null) {
-                                print('Selected Date: $value');
-                              }
-                            });
-                          },
-                          color: Colors.blue,
-                        ),
                         TextFormField(
                             validator: (value) {
                               if (value.isEmpty) {

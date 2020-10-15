@@ -171,7 +171,9 @@ class _LoginState extends State<Login> {
                           textTheme: ButtonTextTheme.accent,
                           child: FlatButton(
                             child: codeSent
-                                ? Text('Login')
+                                ? Text('Login',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),)
                                 : Text(
                                     'Verify',
                                     style: TextStyle(
