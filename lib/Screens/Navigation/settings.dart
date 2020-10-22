@@ -16,14 +16,14 @@ class _SettingsState extends State<Settings> {
   int index;
 
   @override
-  void initState() {
+ /* void initState() {
     userData.getuserData().then((results) {
       setState(() {
         users = results;
       });
     });
     super.initState();
-  }
+  }*/
 
   /*final User user;
   _SettingsState({this.user});

@@ -627,12 +627,21 @@ class _PostState extends State<Post> {
   saveItem(imageDownloadUrl) {
     var id = Uuid();
     String productId = id.v1();
+    /*List<String> splitList=productName.split('');
+    List<String> indexList=[];
+    for(int i=0;i < splitList.length;i++){
+      for(int j=0;j<splitList[i].length+i;j++){
+        indexList.add(splitList[i].substring(0,j).toLowerCase());
+      }
+      
+    }*/
     final itemsRef = FirebaseFirestore.instance.collection("itemlist");
 
     itemsRef.doc(productId).set({
       'productName': productName,
       'price': price,
       'description': description,
+      //'searchIndex': indexList,
       'images': imageDownloadUrl,
       'transmission': transmission,
       'fuel': fuel,

@@ -15,31 +15,25 @@ class crudMethods {
 
   String ref = 'products';
 
-  Future<void> addData(itemData) async {
-    var id = Uuid();
-    String productId = id.v1();
-    if (isLoggedIn()) {
-      // ignore: unused_element
-      void uploadProduct(
-          {String productName,
-          double price,
-          String description,
-          String negotiable,
-          List images,
-          String delivery}) {
-        FirebaseFirestore.instance.collection(ref).doc(productId).set({
-          'name': productName,
-          'price': price,
-          'description': description,
-          'delivery': delivery,
-          'negotiable': negotiable,
-          'images': images.toString(),
+  /*Future<List<crudMethods>> searchProducts({String productName}) {
+    String searchKey = productName[0].toUpperCase() + productName.substring(1);
+    return FirebaseFirestore.instance
+        .collection("itemslist")
+        .orderBy("productName")
+        .startAt([searchKey])
+        .endAt([
+          [searchKey + '\uf8fff']
+        ])
+        .get()
+        .then((result) {
+          List<crudMethods> products = [];
+          for (DocumentSnapshot product in result.docs) {
+            products.add(crudMethods.fromSnapshot(products));
+          }
+
+        return products;
         });
-      }
-    } else {
-      print('You need to be logged');
-    }
-  }
+  }*/
 
   getData() async {
     return await FirebaseFirestore.instance
@@ -48,10 +42,11 @@ class crudMethods {
         .get();
   }
 
+
   getDataByModel(String name) async {
     return await FirebaseFirestore.instance
         .collection('itemlist')
-        .where("productName", isEqualTo: name)
+        .where("productName", isGreaterThanOrEqualTo: name)
         .get();
   }
 }

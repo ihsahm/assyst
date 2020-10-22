@@ -49,6 +49,7 @@ dependencies:
   custom_dropdown: ^0.0.2
   google_sign_in: ^4.5.1
   carousel_slider: ^2.2.1
+  algolia: ^0.1.7
 
 dev_dependencies:
   flutter_test:

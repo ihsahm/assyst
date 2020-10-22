@@ -58,7 +58,7 @@ class _DiscoverDashboardState extends State<DiscoverDashboard> {
                                   product_detail_mileage:
                                       "${items.docs[index].data()['mileage']}",
                                   product_detail_picture:
-                                      "${items.docs[index].data()['images']}",
+                                      "${items.docs[index].data()['image']}",
                                   product_detail_address:
                                       "${items.docs[index].data()['location']}",
                                   product_detail_negotiable:
@@ -99,7 +99,7 @@ class _DiscoverDashboardState extends State<DiscoverDashboard> {
                       ),
                     ),
                     child: ExtendedImage.network(
-                      "${items.docs[index].data()['images']}",
+                      "${items.docs[index].data()['image']}",
                       width: double.infinity,
                       fit: BoxFit.cover,
                       height: double.infinity,
