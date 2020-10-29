@@ -286,7 +286,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
                           ),
-                          trailing: Text(widget.product_detail_transmission,
+                          trailing: Text(widget.product_detail_transmission??'Not given',
                               style: TextStyle(color: Colors.black))),
                       ListTile(
                           contentPadding:

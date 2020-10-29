@@ -40,8 +40,8 @@ class _SettingsState extends State<Settings> {
           style: TextStyle(color: Colors.black),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0.5,
+        backgroundColor: Colors.white12,
+        elevation: 0,
         centerTitle: true,
       ),
       body: Container(
