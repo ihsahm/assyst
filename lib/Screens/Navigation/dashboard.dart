@@ -1,4 +1,5 @@
 import 'package:assyst/Items/dashboard.dart';
+import 'package:assyst/Items/searchdashboard.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,7 +29,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
               ),
               onPressed: () {
-                // showSearch(context: context, delegate: ProductSearch());
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchDashboard()));
               }),
         ],
         automaticallyImplyLeading: false,
@@ -37,12 +39,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-/*class SearchScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      
-    );
-  }
-}*/

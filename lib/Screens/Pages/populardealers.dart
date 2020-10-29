@@ -60,9 +60,6 @@ class _PopularDealersState extends State<PopularDealers> {
               ),
               // Center(child: Text(widget.car_name))
             ],
-            /*children: <widget>[
-
-          ]*/
           ),
         )
       ],

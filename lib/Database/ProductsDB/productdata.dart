@@ -36,7 +36,7 @@ class ProductService {
       'year': year,
       'transmission': transmission,
       'negotiable': negotiable,
-      'images': images
+      'image': images
     });
   }
 }

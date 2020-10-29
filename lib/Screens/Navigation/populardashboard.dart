@@ -19,7 +19,7 @@ class _FavoriteItemsState extends State<FavoriteItems> {
         backgroundColor: Colors.white12,
         elevation: 0,
       ),
-      body:  new Discover()      
+      body: Container(), //new Discover()      
     );
   }
 }

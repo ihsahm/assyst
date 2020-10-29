@@ -374,7 +374,7 @@ class _PostState extends State<Post> {
                               ),
                               validator: (value) =>
                                   value == null ? 'Enter year of make' : null,
-                              value: currentSelectedValue1,
+                              value: currentSelectedValue7,
                               hint: Text('Year made'),
                               onChanged: (newValue) {
                                 setState(() {
@@ -655,7 +655,7 @@ class _PostState extends State<Post> {
       'price': price,
       'description': description,
       //'searchIndex': indexList,
-      'images': imageDownloadUrl,
+      'image': imageDownloadUrl,
       'transmission': transmission,
       'fuel': fuel,
       'phoneNumber': phoneNumber,

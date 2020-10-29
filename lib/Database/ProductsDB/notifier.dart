@@ -46,7 +46,7 @@ class crudMethods {
   getDataByModel(String name) async {
     return await FirebaseFirestore.instance
         .collection('itemlist')
-        .where("productName", isGreaterThanOrEqualTo: name)
+        .where("productName", isEqualTo: name)
         .get();
   }
 }
