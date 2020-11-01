@@ -2,7 +2,6 @@ import 'package:assyst/Authentication/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:international_phone_input/international_phone_input.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -74,26 +73,25 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/volkswagen.jpg"),
+          fit: BoxFit.cover,
+        )),
+        //color: Colors.white,
         child: Column(
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
                 children: [
-                  /* SizedBox(height: 80),
-                  Image.asset(
-                    'assets/logo.png',
-                    scale: 1.1,
-                  ),*/
-                  // Text('Assyst',style: TextStyle(color:Colors.blue[500],fontSize: 34,fontWeight:FontWeight.bold)),
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey,
+                            color: Colors.black,
                             offset: Offset(0.0, 1.0),
                             blurRadius: 6.0,
                           )
@@ -114,14 +112,14 @@ class _LoginState extends State<Login> {
                           key: formKey,
                           child: Column(
                             children: [
-                              /* InternationalPhoneInput(
+                              InternationalPhoneInput(
                                   decoration: InputDecoration.collapsed(
                                       hintText: '(910) 123456'),
-                                   onPhoneNumberChange: onPhoneNumberChange,
+                                  onPhoneNumberChange: onPhoneNumberChange,
                                   initialPhoneNumber: phoneNo,
-                                   initialSelection: 'ET',
+                                  initialSelection: 'ET',
                                   enabledCountries: ['+251'],
-                                  showCountryCodes: true),*/
+                                  showCountryCodes: true),
                               TextFormField(
                                 validator: (value) {
                                   if (value.isEmpty) {
@@ -171,9 +169,11 @@ class _LoginState extends State<Login> {
                           textTheme: ButtonTextTheme.accent,
                           child: FlatButton(
                             child: codeSent
-                                ? Text('Login',
+                                ? Text(
+                                    'Login',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 15),)
+                                        color: Colors.white, fontSize: 15),
+                                  )
                                 : Text(
                                     'Verify',
                                     style: TextStyle(
@@ -215,14 +215,18 @@ class _LoginState extends State<Login> {
               children: [
                 Icon(
                   Icons.copyright,
-                  color: Colors.grey,
+                  color: Colors.white,
+                  size: 18,
                 ),
                 SizedBox(
                   width: 5,
                 ),
                 Text(
                   'Assyst',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
                 )
               ],
             )

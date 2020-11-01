@@ -16,7 +16,7 @@ class _SettingsState extends State<Settings> {
   int index;
 
   @override
- /* void initState() {
+  /* void initState() {
     userData.getuserData().then((results) {
       setState(() {
         users = results;
@@ -48,40 +48,10 @@ class _SettingsState extends State<Settings> {
         margin: EdgeInsets.only(top: 50),
         child: Column(
           children: <Widget>[
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text(
-                'Change user settings',
-                style: TextStyle(color: Colors.black),
-              ),
-              trailing: Icon(Icons.keyboard_arrow_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserSettings()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.history),
-              title: Text(
-                'My posts',
-                style: TextStyle(color: Colors.black),
-              ),
-              trailing: Icon(Icons.keyboard_arrow_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Posts()),
-                );
-              },
-            ),
-            Divider(),
             SizedBox(height: 20),
             Divider(),
             ListTile(
-              leading: Icon(Icons.info),
+              leading: Icon(Icons.warning),
               title: Text(
                 'Terms of use and privacy policy',
                 style: TextStyle(color: Colors.black),
@@ -133,6 +103,17 @@ class _SettingsState extends State<Settings> {
                   },
                 );
               },
+            ),
+            Divider(),
+            SizedBox(height: 20),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text(
+                'About us',
+                style: TextStyle(color: Colors.black),
+              ),
+              onTap: () {},
             ),
             Divider(),
             SizedBox(height: 20),

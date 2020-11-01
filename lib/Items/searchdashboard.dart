@@ -1,19 +1,11 @@
 // import 'dart:html';
 
-import 'package:assyst/Database/ProductsDB/notifier.dart';
 import 'package:assyst/Models/carr.dart';
 import 'package:assyst/Screens/Pages/cardetails.dart';
-import 'package:assyst/Screens/Pages/populardealers.dart';
-import 'package:assyst/Screens/Pages/popularpage.dart';
-import 'package:assyst/Search/searchservice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:algolia/algolia.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-final usersRef = Firestore.instance.collection('itemlist');
+final usersRef = FirebaseFirestore.instance.collection('itemlist');
 
 class SearchDashboard extends StatefulWidget {
   @override
@@ -26,9 +18,8 @@ class _SearchDashboardState extends State<SearchDashboard> {
 
   handleSearch(String query) {
     String query2 = query.toString().toUpperCase();
-    Future<QuerySnapshot> users = usersRef
-        .where('productName', isGreaterThanOrEqualTo: query2)
-        .getDocuments();
+    Future<QuerySnapshot> users =
+        usersRef.where('productName', isGreaterThanOrEqualTo: query2).get();
     setState(() {
       searchResultsFuture = users;
     });
@@ -40,19 +31,25 @@ class _SearchDashboardState extends State<SearchDashboard> {
 
   AppBar builSearchField() {
     return AppBar(
-      automaticallyImplyLeading: false,
+        elevation: 0,
+        /*leading: FlatButton(child:Icon(Icons.clear,color: Colors.black),onPressed:(){
+          Navigator.pop(context);
+        }),*/
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: TextFormField(
           controller: searchController,
           decoration: InputDecoration(
               hintText: 'Search for a car...',
-              filled: true,
               prefixIcon: Icon(
                 Icons.search,
-                size: 28.0,
+                size: 20.0,
               ),
+              /* border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),*/
               suffixIcon: IconButton(
                 icon: Icon(Icons.clear),
+                iconSize: 20,
                 onPressed: clearSearch,
               )),
           onFieldSubmitted: handleSearch,
@@ -60,14 +57,15 @@ class _SearchDashboardState extends State<SearchDashboard> {
   }
 
   Container buildNoContent() {
-    final Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
         child: Center(
             child: ListView(
       shrinkWrap: true,
       children: <Widget>[
-        Image.asset('assets/findcar.png',
-            height: orientation == Orientation.portrait ? 300.0 : 200),
+        Image.asset(
+          'assets/findcar.png',
+          height: 300,
+        ),
         Text(
           'Find a car',
           textAlign: TextAlign.center,
@@ -126,7 +124,6 @@ class CarResult extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              String cc = carr.phoneNumber;
               Navigator.push(
                   context,
                   MaterialPageRoute(

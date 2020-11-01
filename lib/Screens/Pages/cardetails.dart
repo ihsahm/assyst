@@ -1,9 +1,9 @@
 import 'package:assyst/Database/UserDB/newuserdb.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../Database/ProductsDB/notifier.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -42,32 +42,6 @@ class _ProductDetailsState extends State<ProductDetails> {
   String item;
   String transmission;
   QuerySnapshot items;
-  List<Color> _colors = [
-    Colors.grey,
-    Colors.red,
-  ];
-
-  String _imageUrl;
-
-  String get imageUrl => _imageUrl;
-
-  int _currentIndex = 0;
-
-  _onChanged() {
-    /*int _colorCount = _colors.length;
-    setState(() {
-      if (_currentIndex == _colorCount - 1) {
-        _currentIndex = 0;
-      } else {
-        _currentIndex += 1;
-      }
-    });*/
-
-    Fluttertoast.showToast(
-        msg: 'Added to favorites',
-        backgroundColor: Colors.grey,
-        textColor: Colors.white);
-  }
 
   QuerySnapshot users;
   int index;
@@ -91,6 +65,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     super.initState();
   }
 
+  List<NetworkImage> _listOfImages = <NetworkImage>[];
+
   @override
   Widget build(BuildContext context) {
     if (items != null) {
@@ -100,32 +76,9 @@ class _ProductDetailsState extends State<ProductDetails> {
             backgroundColor: Colors.white,
             elevation: 0,
             title: Text(
-              'Product Details',
+              'Car Details',
               style: TextStyle(color: Colors.black),
             ),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.favorite,
-                  color: _colors[_currentIndex],
-                ),
-                onPressed: () {
-                  int _colorCount = _colors.length;
-                  setState(() {
-                    if (_currentIndex == _colorCount - 1) {
-                      _currentIndex = 0;
-                    } else {
-                      _currentIndex += 1;
-                    }
-                  });
-                  /*items.addItem(
-                    widget.product_detail_name
-                  )*/
-                  //Navigator.of(context).pushNamed(Favorites.routeName);
-                  // Fluttertoast.showToast(msg: "${widget.product_detail_name} added to favorites",backgroundColor: Colors.black,textColor: Colors.white);
-                },
-              ),
-            ],
             centerTitle: true,
             leading: IconButton(
                 color: Colors.black,
@@ -134,10 +87,59 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Navigator.pop(context);
                 }),
           ),
-          body: Stack(children: <Widget>[
-            SingleChildScrollView(
-                child: Column(
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /*StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('itemlist')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (BuildContext context, int index) {
+                              _listOfImages = [];
+                              for (int i = 0;
+                                  i <
+                                      snapshot.data.docs[index]
+                                          .data()['urls']
+                                          .length;
+                                  i++) {
+                                _listOfImages.add(NetworkImage(
+                                    snapshot.data.docs[index].data()['urls']
+                                        [i]));
+                              }
+                              return Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 300,
+                                    width: double.infinity,
+                                    child: Carousel(
+                                        boxFit: BoxFit.cover,
+                                        images: _listOfImages,
+                                        autoplay: false,
+                                        indicatorBgPadding: 1,
+                                        dotSize: 5,
+                                        dotBgColor: Colors.transparent,
+                                        dotColor: Colors.black,
+                                        dotPosition: DotPosition.bottomCenter,
+                                        animationCurve: Curves.fastOutSlowIn,
+                                        animationDuration:
+                                            Duration(milliseconds: 2000)),
+                                  ),
+                                ],
+                              );
+                            });
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),*/
                 GestureDetector(
                   onTap: () => _ImagePage(context),
                   child: Hero(
@@ -151,12 +153,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           height: double.infinity,
                           cache: true,
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                          //cancelToken: cancellationToken,
                         ),
                       )),
-                ),
-                Divider(
-                  thickness: 10,
                 ),
                 SizedBox(
                   height: 10,
@@ -193,6 +191,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Divider(
                   thickness: 10,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Description',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Divider(
+                  thickness: 1,
+                ),
+                /* Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 20, 0, 10),
+                  child: Text(
+                    widget.product_detail_name,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),*/
                 Container(
                   child: Column(
                     children: [
@@ -207,17 +225,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           trailing: Text(widget.product_detail_name,
                               style: TextStyle(color: Colors.black))),
-                      /* ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Car name: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(widget.product_detail_poster,
-                              style: TextStyle(color: Colors.black))),*/
                       ListTile(
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 20.0),
@@ -286,7 +293,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
                           ),
-                          trailing: Text(widget.product_detail_transmission??'Not given',
+                          trailing: Text(
+                              widget.product_detail_transmission ?? 'Not given',
                               style: TextStyle(color: Colors.black))),
                       ListTile(
                           contentPadding:
@@ -317,10 +325,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                   thickness: 10,
                 ),
                 SizedBox(height: 15),
-                Text(
+                /*Text(
                   'Description',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                ),*/
                 Divider(),
                 SizedBox(height: 20),
                 Text(widget.product_detail_description),
@@ -329,9 +337,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                   thickness: 10,
                 ),
                 SizedBox(height: 15),
-                Text(
-                  'Other items',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Other items',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Divider(),
                 Container(
@@ -423,8 +434,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   thickness: 10,
                 )
               ],
-            )),
-          ]),
+            ),
+          ),
         ),
       );
     } else {
@@ -457,7 +468,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                 }),
           ),
           backgroundColor: Colors.black,
-          body: Center(
+          body: SizedBox(
+            height: double.infinity,
             child: Hero(
               tag: "Demo",
               child: ExtendedImage.network(
@@ -468,9 +480,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 initGestureConfigHandler: (state) {
                   return GestureConfig(
                     minScale: 1,
+                    animationMinScale: 0.7,
                     maxScale: 3.0,
+                    animationMaxScale: 3.5,
                     speed: 1.0,
                     inertialSpeed: 100.0,
+                    initialScale: 1.0,
                     inPageView: false,
                     initialAlignment: InitialAlignment.center,
                   );

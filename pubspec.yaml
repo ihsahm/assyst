@@ -40,6 +40,7 @@ dependencies:
   cached_network_image: ^2.3.2+1
   international_phone_input: ^1.0.4
   carousel_pro: ^1.0.0
+  multi_image_picker: ^4.6.1
   photo_view: ^0.10.2
   firebase_storage: ^4.0.0
   image_picker: ^0.6.7+6

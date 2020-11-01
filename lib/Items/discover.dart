@@ -1,4 +1,3 @@
-import 'package:assyst/Screens/Pages/cardetails.dart';
 import 'package:assyst/Screens/Pages/popularpage.dart';
 import 'package:flutter/material.dart';
 

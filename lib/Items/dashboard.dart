@@ -1,12 +1,9 @@
-import 'dart:typed_data';
 import 'package:assyst/Database/UserDB/newuserdb.dart';
 import 'package:assyst/Database/ProductsDB/notifier.dart';
 import 'package:assyst/Screens/Pages/cardetails.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class All extends StatefulWidget {
   final product_detail_picture;
@@ -65,6 +62,8 @@ class _AllState extends State<All> {
     super.initState();
   }
 
+  List<NetworkImage> _listOfImages = <NetworkImage>[];
+
   @override
   Widget build(BuildContext context) {
     if (items != null) {
@@ -81,6 +80,10 @@ class _AllState extends State<All> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ProductDetails(
+                                  /*  product_detail_name:
+                                      "${items.docs[index].data()['Description']}",
+                                  product_detail_picture:
+                                      "${items.docs[index].data()['image']}",*/
                                   product_detail_name:
                                       "${items.docs[index].data()['productName']}",
                                   product_detail_description:
@@ -92,7 +95,7 @@ class _AllState extends State<All> {
                                   product_detail_mileage:
                                       "${items.docs[index].data()['mileage']}",
                                   product_detail_picture:
-                                      "${items.docs[index].data()['image']}",
+                                      "${items.docs[index].data()['urls']}",
                                   product_detail_address:
                                       "${items.docs[index].data()['location']}",
                                   product_detail_negotiable:
@@ -114,14 +117,16 @@ class _AllState extends State<All> {
                         children: <Widget>[
                           SizedBox(height: 2),
                           Text(
-                            "${items.docs[index].data()['productName']}",
+                            "car name",
+                            //"${items.docs[index].data()['productName']}",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
                           SizedBox(height: 5),
                           Text(
-                            " ${items.docs[index].data()['price']} \Br.",
+                            "price",
+                            // " ${items.docs[index].data()['price']} \Br.",
                             style: TextStyle(
                                 // backgroundColor: Colors.white24,
                                 color: Colors.black,

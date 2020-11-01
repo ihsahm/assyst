@@ -1,4 +1,3 @@
-import 'package:assyst/Items/discover.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteItems extends StatefulWidget {
@@ -19,7 +18,7 @@ class _FavoriteItemsState extends State<FavoriteItems> {
         backgroundColor: Colors.white12,
         elevation: 0,
       ),
-      body: Container(), //new Discover()      
+      body: Container(), //new Discover()
     );
   }
 }

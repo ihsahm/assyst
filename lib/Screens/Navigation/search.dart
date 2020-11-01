@@ -1,5 +1,4 @@
 import 'package:algolia/algolia.dart';
-import 'package:assyst/Items/searchdashboard.dart';
 import 'package:assyst/Search/algolia.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final Algolia _algoliaApp = AlgoliaApp.algolia;
   String _searchTerm;
-  
+
   Future<List<AlgoliaObjectSnapshot>> _operation(String input) async {
     AlgoliaQuery query = _algoliaApp.instance.index("itemlist").search(input);
     AlgoliaQuerySnapshot querySnap = await query.getObjects();
@@ -31,6 +30,6 @@ class _SearchState extends State<Search> {
             style: TextStyle(color: Colors.blue),
           ),
         ),
-        body: SearchDashboard());
+        body: Container()); //SearchDashboard());
   }
 }

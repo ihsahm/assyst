@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:assyst/Database/ProductsDB/productdata.dart';
 //import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:uuid/uuid.dart';
-import 'package:dropdown_date_picker/dropdown_date_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -44,13 +44,13 @@ class _PostState extends State<Post> {
   // File _image3;
 
   File file;
+  List<Asset> images = List<Asset>();
+  List<String> imageUrls = <String>[];
   final imagePicker = ImagePicker();
   ProductService productService = ProductService();
-  String locationdropdownValue = 'Addis Ababa';
   String negotiabledropdownValue = 'Not negotiable';
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-  int _checkboxValue;
   final now = DateTime.now();
 
   TextEditingController yearController = TextEditingController();
@@ -138,48 +138,6 @@ class _PostState extends State<Post> {
                                         )
                                       : Icon(Icons.add)),
                             ),
-                            /*  CircleAvatar(
-                              radius: 30,
-                              child: ClipOval(
-                                  child: (_image2 != null)
-                                      ? Image.file(
-                                          _image2,
-                                          fit: BoxFit.fill,
-                                        )
-                                      : Icon(Icons.add)),
-                            ),
-                            CircleAvatar(
-                              radius: 30,
-                              child: ClipOval(
-                                  child: (_image3 != null)
-                                      ? Image.file(
-                                          _image3,
-                                          fit: BoxFit.fill,
-                                        )
-                                      : Icon(Icons.add)),
-                            ),
-
-                            CircleAvatar(
-                              radius: 30,
-                              child: ClipOval(
-                                  child: (_image3 != null)
-                                      ? Image.file(
-                                          _image3,
-                                          fit: BoxFit.fill,
-                                        )
-                                      : Icon(Icons.add)),
-                            ),
-
-                            CircleAvatar(
-                              radius: 30,
-                              child: ClipOval(
-                                  child: (_image3 != null)
-                                      ? Image.file(
-                                          _image3,
-                                          fit: BoxFit.fill,
-                                        )
-                                      : Icon(Icons.add)),
-                            ),*/
                           ],
                         ),
                         SizedBox(height: 5),
@@ -192,7 +150,9 @@ class _PostState extends State<Post> {
                           textTheme: ButtonTextTheme.accent,
                           child: OutlineButton.icon(
                             onPressed: () {
-                              getImage();
+                              loadAssets();
+                              // uploadImages();
+                              // getImage();
                             },
                             icon: Icon(
                               Icons.photo,
@@ -292,7 +252,7 @@ class _PostState extends State<Post> {
                                 'Mazda',
                                 'Mercedes-Benz',
                                 'Mini Cooper',
-                                'Mitsubishi'
+                                'Mitsubishi',
                                 'Nissan',
                                 'Peugeot',
                                 'Piaggio',
@@ -314,7 +274,7 @@ class _PostState extends State<Post> {
                                 'Volkswagen',
                                 'Yamaha',
                                 'Zotye',
-                                'Other Brand', 
+                                'Other Brand',
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -382,15 +342,89 @@ class _PostState extends State<Post> {
                                   this.year = newValue;
                                 });
                               },
-                               items: <String>[
-                                  '2021' ,  '2020', 	'2019' ,	'2018', 	'2017' ,	'2016', 	'2015' ,	'2014' ,	'2013' ,	'2012' ,	'2011',
-                                  '2010' ,	'2009', 	'2008' ,	'2007', 	'2006' ,	'2005', 	'2004' ,	'2003' ,	'2002' ,	'2001',
-                                  '2000' ,	'1999' ,	'1998' ,	'1997',	'1996', '1995', 	'1994' ,	'1993' ,	'1992' ,	'1991',
-                                  '1990' ,	'1989' ,	'1988' ,	'1987' ,	'1986' ,	'1985' ,	'1984' 	,'1983' ,	'1982' ,	'1981',
-                                  '1980' ,	'1979' ,	'1978' ,	'1977' ,	'1976' ,	'1975' ,	'1974'	,'1973' ,	'1972' ,	'1971',
-                                  '1970' ,	'1969' ,	'1968' ,	'1967' ,	'1966' ,	'1965' ,	'1964' 	,'1963' ,	'1962' ,	'1961',
-                                  '1960' ,	'1959' ,	'1958' ,	'1957' ,	'1956' ,	'1955' ,	'1954'	,'1953' ,	'1952' ,	'1951',
-                                  '1950' ,	'1949' ,	'1948' ,	'1947' ,	'1946' ,	'1945' ,	'1944' 	,'1943' ,	'1942' ,	'1941','1940' ,
+                              items: <String>[
+                                '2021',
+                                '2020',
+                                '2019',
+                                '2018',
+                                '2017',
+                                '2016',
+                                '2015',
+                                '2014',
+                                '2013',
+                                '2012',
+                                '2011',
+                                '2010',
+                                '2009',
+                                '2008',
+                                '2007',
+                                '2006',
+                                '2005',
+                                '2004',
+                                '2003',
+                                '2002',
+                                '2001',
+                                '2000',
+                                '1999',
+                                '1998',
+                                '1997',
+                                '1996',
+                                '1995',
+                                '1994',
+                                '1993',
+                                '1992',
+                                '1991',
+                                '1990',
+                                '1989',
+                                '1988',
+                                '1987',
+                                '1986',
+                                '1985',
+                                '1984',
+                                '1983',
+                                '1982',
+                                '1981',
+                                '1980',
+                                '1979',
+                                '1978',
+                                '1977',
+                                '1976',
+                                '1975',
+                                '1974',
+                                '1973',
+                                '1972',
+                                '1971',
+                                '1970',
+                                '1969',
+                                '1968',
+                                '1967',
+                                '1966',
+                                '1965',
+                                '1964',
+                                '1963',
+                                '1962',
+                                '1961',
+                                '1960',
+                                '1959',
+                                '1958',
+                                '1957',
+                                '1956',
+                                '1955',
+                                '1954',
+                                '1953',
+                                '1952',
+                                '1951',
+                                '1950',
+                                '1949',
+                                '1948',
+                                '1947',
+                                '1946',
+                                '1945',
+                                '1944',
+                                '1943',
+                                '1942',
+                                '1941',
+                                '1940',
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -564,8 +598,8 @@ class _PostState extends State<Post> {
                             ),
                             child: RaisedButton(
                               onPressed: () {
-                                uploadImageandSaveItem();
-                                // validateandUpload();
+                                uploadImages();
+                                // uploadImageandSaveItem();
                               },
                               child: Text(
                                 'Post',
@@ -583,6 +617,85 @@ class _PostState extends State<Post> {
     );
   }
 
+  Future<dynamic> postImage(Asset imageFile) async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    StorageReference reference = FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask =
+        reference.putData((await imageFile.getByteData()).buffer.asUint8List());
+    StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
+    print(storageTaskSnapshot.ref.getDownloadURL());
+    return storageTaskSnapshot.ref.getDownloadURL();
+  }
+
+  void uploadImages() {
+    for (var imageFile in images) {
+      postImage(imageFile).then((downloadUrl) {
+        imageUrls.add(downloadUrl.toString());
+        if (imageUrls.length == images.length) {
+          String documnetID = DateTime.now().millisecondsSinceEpoch.toString();
+          FirebaseFirestore.instance
+              .collection('itemlist')
+              .doc(documnetID)
+              .set({
+            'urls': imageUrls,
+            'productName': productName,
+            'price': price,
+            'description': description,
+            'transmission': transmission,
+            'fuel': fuel,
+            'phoneNumber': phoneNumber,
+            'condition': condition,
+            'mileage': mileage,
+            'year': year,
+            'negotiable': negotiable
+          }).then((_) {
+            print('Uploaded succesfuly');
+            //SnackBar snackbar = SnackBar(content: Text('Uploaded Successfully'));
+            //widget.globalKey.currentState.showSnackBar(snackbar);
+            setState(() {
+              images = [];
+              imageUrls = [];
+            });
+          });
+        }
+      }).catchError((err) {
+        print(err);
+      });
+    }
+  }
+
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    String error = 'No Error Dectected';
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 10,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#abcdef",
+          actionBarTitle: "Upload Image",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      print(resultList.length);
+      print((await resultList[0].getThumbByteData(122, 100)));
+      print((await resultList[0].getByteData()));
+      print((await resultList[0].metadata));
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+
+    if (!mounted) return;
+    setState(() {
+      images = resultList;
+      // _error = error;
+    });
+  }
+
   Future getImage() async {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
 
@@ -598,7 +711,7 @@ class _PostState extends State<Post> {
   }
 
   Future<String> uploadImageandSaveItem() async {
-    String imageDownloadUrl = await uploadItemImage(_image1);
+    // String imageDownloadUrl = await postImage(imageFile);
     //if (imageDownloadUrl != null) {
     /* } else {
       return null;
@@ -607,7 +720,7 @@ class _PostState extends State<Post> {
       setState(() => isLoading = true);
       if (productName.isNotEmpty) {
         if (price.isNotEmpty) {
-          saveItem(imageDownloadUrl);
+          // saveItem(imageDownloadUrl);
           _formKey.currentState.reset();
           setState(() => isLoading = false);
         } else {
@@ -640,21 +753,19 @@ class _PostState extends State<Post> {
   saveItem(imageDownloadUrl) {
     var id = Uuid();
     String productId = id.v1();
-    /*List<String> splitList=productName.split('');
-    List<String> indexList=[];
-    for(int i=0;i < splitList.length;i++){
-      for(int j=0;j<splitList[i].length+i;j++){
-        indexList.add(splitList[i].substring(0,j).toLowerCase());
+    List<String> splitList = productName.split('');
+    List<String> indexList = [];
+    for (int i = 0; i < splitList.length; i++) {
+      for (int j = 0; j < splitList[i].length + i; j++) {
+        indexList.add(splitList[i].substring(0, j).toLowerCase());
       }
-      
-    }*/
+    }
     final itemsRef = FirebaseFirestore.instance.collection("itemlist");
 
     itemsRef.doc(productId).set({
       'productName': productName,
       'price': price,
       'description': description,
-      //'searchIndex': indexList,
       'image': imageDownloadUrl,
       'transmission': transmission,
       'fuel': fuel,
