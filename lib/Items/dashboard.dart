@@ -117,18 +117,15 @@ class _AllState extends State<All> {
                         children: <Widget>[
                           SizedBox(height: 2),
                           Text(
-                            "car name",
-                            //"${items.docs[index].data()['productName']}",
+                            "${items.docs[index].data()['productName']}",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
                           SizedBox(height: 5),
                           Text(
-                            "price",
-                            // " ${items.docs[index].data()['price']} \Br.",
+                            " ${items.docs[index].data()['price']} \Br.",
                             style: TextStyle(
-                                // backgroundColor: Colors.white24,
                                 color: Colors.black,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500),
@@ -144,7 +141,6 @@ class _AllState extends State<All> {
                       height: double.infinity,
                       cache: true,
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                      //cancelToken: cancellationToken,
                     ),
                   ),
                 ),

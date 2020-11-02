@@ -288,9 +288,12 @@ class _PostState extends State<Post> {
                           height: 10,
                         ),
                         TextFormField(
+                          maxLength: 10,
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Enter your phone number';
+                            } else if (value.length < 10 || value.length > 10) {
+                              return 'Enter a valid number';
                             } else {
                               return null;
                             }
@@ -632,34 +635,67 @@ class _PostState extends State<Post> {
       postImage(imageFile).then((downloadUrl) {
         imageUrls.add(downloadUrl.toString());
         if (imageUrls.length == images.length) {
-          String documnetID = DateTime.now().millisecondsSinceEpoch.toString();
-          FirebaseFirestore.instance
-              .collection('itemlist')
-              .doc(documnetID)
-              .set({
-            'urls': imageUrls,
-            'productName': productName,
-            'price': price,
-            'description': description,
-            'transmission': transmission,
-            'fuel': fuel,
-            'phoneNumber': phoneNumber,
-            'condition': condition,
-            'mileage': mileage,
-            'year': year,
-            'negotiable': negotiable
-          }).then((_) {
-            print('Uploaded succesfuly');
-            //SnackBar snackbar = SnackBar(content: Text('Uploaded Successfully'));
-            //widget.globalKey.currentState.showSnackBar(snackbar);
-            setState(() {
-              images = [];
-              imageUrls = [];
-            });
-          });
+          if (_formKey.currentState.validate()) {
+            setState(() => isLoading = true);
+
+            if (productName.isNotEmpty) {
+              if (price.isNotEmpty) {
+                _formKey.currentState.reset();
+                setState(() => isLoading = false);
+                String documnetID =
+                    DateTime.now().millisecondsSinceEpoch.toString();
+                FirebaseFirestore.instance
+                    .collection('itemlist')
+                    .doc(documnetID)
+                    .set({
+                  'urls': imageUrls,
+                  'productName': productName,
+                  'price': price,
+                  'description': description,
+                  'transmission': transmission,
+                  'fuel': fuel,
+                  'phoneNumber': phoneNumber,
+                  'condition': condition,
+                  'mileage': mileage,
+                  'year': year,
+                  'negotiable': negotiable
+                }).then((_) {
+                  showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text('Uploaded succesfully'),
+                            actions: [
+                              FlatButton(
+                                  child: Text('Okay'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  })
+                            ],
+                          ));
+
+                  setState(() {
+                    images = [];
+                    imageUrls = [];
+                  });
+                });
+              }
+            }
+          }
         }
       }).catchError((err) {
-        print(err);
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text(
+                      'There was an error uploading your item please try again'),
+                  actions: [
+                    FlatButton(
+                        child: Text('Okay'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        })
+                  ],
+                ));
       });
     }
   }
@@ -681,10 +717,6 @@ class _PostState extends State<Post> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-      print(resultList.length);
-      print((await resultList[0].getThumbByteData(122, 100)));
-      print((await resultList[0].getByteData()));
-      print((await resultList[0].metadata));
     } on Exception catch (e) {
       error = e.toString();
     }
@@ -717,10 +749,19 @@ class _PostState extends State<Post> {
       return null;
     }*/
     if (_formKey.currentState.validate()) {
-      setState(() => isLoading = true);
+      setState(() {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => SimpleDialog(
+                    title: const Text('Posting please wait'),
+                    children: <Widget>[
+                      Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    ]));
+      });
       if (productName.isNotEmpty) {
         if (price.isNotEmpty) {
-          // saveItem(imageDownloadUrl);
           _formKey.currentState.reset();
           setState(() => isLoading = false);
         } else {

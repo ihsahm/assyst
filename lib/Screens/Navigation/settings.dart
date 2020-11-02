@@ -1,7 +1,9 @@
 import 'package:assyst/Authentication/authentication.dart';
 import 'package:assyst/Database/UserDB/newuserdb.dart';
+import 'package:assyst/Terms/terms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -16,20 +18,10 @@ class _SettingsState extends State<Settings> {
   int index;
 
   @override
-  /* void initState() {
-    userData.getuserData().then((results) {
-      setState(() {
-        users = results;
-      });
-    });
-    super.initState();
-  }*/
-
-  /*final User user;
-  _SettingsState({this.user});
-
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  Future<void> _handleSignOut() => googleSignIn.disconnect();*/
+  final Uri emailLaunch = Uri(
+      scheme: 'mailto',
+      path: 'assyst11@gmail.com',
+      queryParameters: {'subject': 'Issues or bug about your app'});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,205 +36,148 @@ class _SettingsState extends State<Settings> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: Container(
-        margin: EdgeInsets.only(top: 50),
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 20),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.warning),
-              title: Text(
-                'Terms of use and privacy policy',
-                style: TextStyle(color: Colors.black),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.contact_mail),
-              title: Text(
-                'Contact support or report bug',
-                style: TextStyle(color: Colors.black),
-              ),
-              onTap: () {
-                return showDialog<void>(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Contact Support or report a bug'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText:
-                                    'Write us a question or send us a bug that you found',
-                              ),
-                              textCapitalization: TextCapitalization.sentences,
-                              maxLines: 3,
-                            )
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text('Cancel'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        FlatButton(
-                          child: Text('Send'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
-            Divider(),
-            SizedBox(height: 20),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text(
-                'About us',
-                style: TextStyle(color: Colors.black),
-              ),
-              onTap: () {},
-            ),
-            Divider(),
-            SizedBox(height: 20),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text(
-                'Logout',
-                style: TextStyle(color: Colors.black),
-              ),
-              onTap: () {
-                return showDialog<void>(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(
-                        'Logout',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('Are you sure you want to logout?')
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text('Yes'),
-                          onPressed: () async {
-                            AuthPhone().signOut();
-
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        FlatButton(
-                          child: Text('No'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
-            Divider(),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.copyright,
-                  color: Colors.grey,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(top: 50),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 20),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.warning),
+                title: Text(
+                  'Terms of use and privacy policy',
+                  style: TextStyle(color: Colors.black),
                 ),
-                SizedBox(width: 5),
-                Text(
-                  'Assyst',
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Terms()));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.contact_mail),
+                title: Text(
+                  'Contact support or report bug',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  launch(emailLaunch.toString());
+                },
+              ),
+              Divider(),
+              SizedBox(height: 20),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.star),
+                title: Text(
+                  'Rate us',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text(
+                  'About us',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  return showDialog<void>(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          'About us',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text(
+                                  "Assyst Inc. is a private software development company founded in 2020. Currently it operates in Addis Ababa but in the near future it is planning to expand to its business to more areas. For more information subscribe to our channel on Telegram and our Facebook page.           ")
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          FlatButton(
+                            child: Text('Ok'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              Divider(),
+              SizedBox(height: 20),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  return showDialog<void>(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Logout',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text('Are you sure you want to logout?')
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text('No'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          FlatButton(
+                            child: Text('Yes'),
+                            onPressed: () async {
+                              AuthPhone().signOut();
 
-class Posts extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'My posts',
-          style: TextStyle(color: Colors.black),
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              Divider(),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.copyright,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'Assyst',
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-      ),
-    );
-  }
-}
-
-class UserSettings extends StatefulWidget {
-  @override
-  _UserSettingsState createState() => _UserSettingsState();
-}
-
-class _UserSettingsState extends State<UserSettings> {
-  bool switchvalue = false;
-  String dropdownValue = 'Not Assigned';
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          'User Settings',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-      ),
-      body: Container(
-        margin: EdgeInsets.fromLTRB(10, 80, 10, 0),
       ),
     );
   }

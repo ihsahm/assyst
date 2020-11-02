@@ -51,10 +51,10 @@ android {
 
     signingConfigs{
         release{
-            keyAlias 'assyst'//keystoreProperties['keyAlias']
-            keyPassword 'android'//keystoreProperties['keyPassword']
-            storeFile file('/home/ihs/key.jks/')//file(keystoreProperties['storeFile'])
-            storePassword 'android'//keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
     buildTypes {

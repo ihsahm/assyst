@@ -21,13 +21,11 @@ class _LoginState extends State<Login> {
   void onPhoneNumberChange(
       String number, String internationalizedPhoneNumber, String isoCode) {
     setState(() {
-      /*phoneNo = internationalizedPhoneNumber;
+      phoneNo = internationalizedPhoneNumber;
       print(internationalizedPhoneNumber);
-      //phoneIsoCode = isoCode;*/
     });
   }
 
-  @override
   Future<void> verifyPhone(phoneNo) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -113,14 +111,20 @@ class _LoginState extends State<Login> {
                           child: Column(
                             children: [
                               InternationalPhoneInput(
-                                  decoration: InputDecoration.collapsed(
-                                      hintText: '(910) 123456'),
+                                  errorText: 'Insert a valid phone',
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    hintText: '912345678',
+                                  ),
                                   onPhoneNumberChange: onPhoneNumberChange,
                                   initialPhoneNumber: phoneNo,
                                   initialSelection: 'ET',
                                   enabledCountries: ['+251'],
+                                  showCountryFlags: false,
                                   showCountryCodes: true),
-                              TextFormField(
+                              /*  TextFormField(
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Enter a phone number';
@@ -139,7 +143,7 @@ class _LoginState extends State<Login> {
                                     this.phoneNo = val;
                                   });
                                 },
-                              ),
+                              ),*/
                               SizedBox(height: 20),
                               codeSent
                                   ? TextFormField(
@@ -165,7 +169,7 @@ class _LoginState extends State<Login> {
                           height: 50.0,
                           buttonColor: Colors.blue,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(60)),
+                              borderRadius: BorderRadius.circular(10)),
                           textTheme: ButtonTextTheme.accent,
                           child: FlatButton(
                             child: codeSent
@@ -175,7 +179,7 @@ class _LoginState extends State<Login> {
                                         color: Colors.white, fontSize: 15),
                                   )
                                 : Text(
-                                    'Verify',
+                                    'Login',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 15),
                                   ),
@@ -201,6 +205,14 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 20,
                         ),
+                        ButtonTheme(
+                            minWidth: 250.0,
+                            height: 50.0,
+                            buttonColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60)),
+                            child: FlatButton(
+                                child: Text('Skip'), onPressed: () {}))
                       ],
                     ),
                   ),

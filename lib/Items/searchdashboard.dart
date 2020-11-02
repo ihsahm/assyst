@@ -1,6 +1,6 @@
 // import 'dart:html';
 
-import 'package:assyst/Models/carr.dart';
+import 'package:assyst/Search/carr.dart';
 import 'package:assyst/Screens/Pages/cardetails.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

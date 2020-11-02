@@ -92,7 +92,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /*StreamBuilder<QuerySnapshot>(
+                StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('itemlist')
                         .snapshots(),
@@ -101,6 +101,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         return ListView.builder(
                             shrinkWrap: true,
                             itemCount: 1,
+                            physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (BuildContext context, int index) {
                               _listOfImages = [];
                               for (int i = 0;
@@ -139,8 +140,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: CircularProgressIndicator(),
                         );
                       }
-                    }),*/
-                GestureDetector(
+                    }),
+                /*    GestureDetector(
                   onTap: () => _ImagePage(context),
                   child: Hero(
                       tag: "Demo",
@@ -155,7 +156,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
                         ),
                       )),
-                ),
+                ),*/
                 SizedBox(
                   height: 10,
                 ),
@@ -187,6 +188,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                     // IconButton(icon: Icon(Icons.call), onPressed: (){}),
                   ],
                 ),
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Text(
+                        widget.product_detail_name,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "${widget.product_detail_price} \Br.",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 10),
                 Divider(
                   thickness: 10,
@@ -194,8 +217,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                 SizedBox(
                   height: 10,
                 ),
-                Align(
-                  alignment: Alignment.center,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Description',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -212,133 +235,193 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ),*/
                 Container(
-                  child: Column(
-                    children: [
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Car name: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(widget.product_detail_name,
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Price: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text("${widget.product_detail_price} \Br.",
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Phone Number: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(widget.product_detail_number,
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                          ),
-                          leading: Text(
-                            "Mileage: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(
-                              "${widget.product_detail_mileage} \km.",
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20.0,
-                          ),
-                          leading: Text(
-                            "Year: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(widget.product_detail_year,
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Condition:",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /*ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Car name: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
                             ),
-                          ),
-                          trailing: Text(widget.product_detail_condition,
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Transmission: ",
-                            style: TextStyle(
+                            trailing: Text(widget.product_detail_name,
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Price: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text("${widget.product_detail_price} \Br.",
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Phone Number: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(widget.product_detail_number,
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
+                            leading: Text(
+                              "Mileage: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(
+                                "${widget.product_detail_mileage} \km.",
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
+                            leading: Text(
+                              "Year: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(widget.product_detail_year,
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Condition:",
+                              style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(
-                              widget.product_detail_transmission ?? 'Not given',
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Fuel type: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(widget.product_detail_fuel,
-                              style: TextStyle(color: Colors.black))),
-                      ListTile(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Text(
-                            "Negotiable: ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Text(widget.product_detail_negotiable,
-                              style: TextStyle(color: Colors.black))),
-                    ],
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            trailing: Text(widget.product_detail_condition,
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Transmission: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(
+                                widget.product_detail_transmission ?? 'Not given',
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Fuel type: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(widget.product_detail_fuel,
+                                style: TextStyle(color: Colors.black))),
+                        ListTile(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20.0),
+                            leading: Text(
+                              "Negotiable: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(widget.product_detail_negotiable,
+                                style: TextStyle(color: Colors.black))),*/
+
+                        Text(
+                          widget.product_detail_transmission,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18),
+                        ),
+                        Text(
+                          widget.product_detail_year,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18),
+                        ),
+                        Text(
+                          "${widget.product_detail_mileage} \Km.",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18),
+                        ),
+                        Text(
+                          widget.product_detail_condition,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18),
+                        ),
+                        Text(
+                          widget.product_detail_negotiable,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18),
+                        ),
+                        Text(
+                          widget.product_detail_fuel,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Divider(
                   thickness: 10,
                 ),
                 SizedBox(height: 15),
-                /*Text(
-                  'Description',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),*/
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'More Details',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Divider(),
                 SizedBox(height: 20),
-                Text(widget.product_detail_description),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    widget.product_detail_description ??
+                        'No more details added',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18),
+                  ),
+                ),
                 SizedBox(height: 15),
                 Divider(
                   thickness: 10,
                 ),
                 SizedBox(height: 15),
-                Align(
-                  alignment: Alignment.center,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'Other items',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

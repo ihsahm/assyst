@@ -16,18 +16,18 @@ class _NavigationState extends State<Navigation> {
     final _pages = <Widget>[
       Center(child: HomePage()),
       // Center(child: SearchDashboard()),
-      //Center(child: Post()),
+      Center(child: Post()),
       // Center(child: FavoriteItems()),
       Center(child: Settings()),
     ];
     final _items = <BottomNavigationBarItem>[
       BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
       // BottomNavigationBarItem(icon: Icon(Icons.search), title: Text('Search')),
-      /*BottomNavigationBarItem(
+      BottomNavigationBarItem(
           icon: Icon(Icons.add),
           title: Text(
             'Post a car',
-          )),*/
+          )),
       // BottomNavigationBarItem(
       //     icon: Icon(Icons.car_rental), title: Text('Popular')),
       BottomNavigationBarItem(

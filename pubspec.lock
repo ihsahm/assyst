@@ -127,20 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
-  custom_dropdown:
-    dependency: "direct main"
-    description:
-      name: custom_dropdown
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
-  dropdown_date_picker:
-    dependency: "direct main"
-    description:
-      name: dropdown_date_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.3"
   extended_image:
     dependency: "direct main"
     description:
@@ -295,28 +281,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.2"
-  google_sign_in:
-    dependency: "direct main"
-    description:
-      name: google_sign_in
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.5.3"
-  google_sign_in_platform_interface:
-    dependency: transitive
-    description:
-      name: google_sign_in_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.2"
-  google_sign_in_web:
-    dependency: transitive
-    description:
-      name: google_sign_in_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.1+1"
+    version: "7.1.1"
   http:
     dependency: transitive
     description:
